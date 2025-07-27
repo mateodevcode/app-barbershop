@@ -71,60 +71,62 @@ const ModalNotificaciones = () => {
               </div>
               {/* Notificaciones */}
               <div className="mt-4 flex flex-col gap-4">
-                <div className="flex items-start justify-between bg-white/30 hover:bg-white/50 backdrop-blur-md rounded-lg p-4 cursor-pointer select-none">
-                  <div className="w-16 h-16 flex items-center justify-center bg-black/10 rounded-lg relative">
-                    <TbPointFilled className="absolute text-xl text-blue-600 top-3 right-3" />
-                    <IoIosNotificationsOutline className="text-3xl text-white" />
+                <div className="flex items-start justify-between bg-white/30 hover:bg-white/50 backdrop-blur-md rounded-lg p-4 cursor-pointer select-none gap-2">
+                  <div className="w-12 h-12 flex items-center justify-center bg-black/10 rounded-lg relative">
+                    <TbPointFilled className="absolute text-lg text-blue-600 top-2 right-2" />
+                    <IoIosNotificationsOutline className="text-2xl text-white" />
                   </div>
-                  <div className="flex flex-col gap-1 w-7/12 text-sm">
-                    <span className="text-sm font-semibold">
+                  <div className="flex flex-col w-7/12 text-sm">
+                    <span className="text-xs font-semibold">
                       Reserva confirmada
                     </span>
-                    <span className="text-xs text-zinc-800">
+                    <span className="text-[10px] text-zinc-800">
                       Tu reserva ha sido confirmada para el servicio de corte de
                       cabello el 15 de octubre a las 3:00 PM.
                     </span>
                   </div>
                   <div className="">
-                    <span className="text-xs text-zinc-800 w-10">
+                    <span className="text-[10px] text-zinc-800 w-10">
                       Hace 10 min
                     </span>
                   </div>
                 </div>
-                <div className="flex items-start justify-between bg-white/30 backdrop-blur-md rounded-lg p-4">
-                  <div className="w-16 h-16 flex items-center justify-center bg-black/10 rounded-lg">
-                    <IoIosNotificationsOutline className="text-3xl text-white" />
+                <div className="flex items-start justify-between bg-white/30 hover:bg-white/50 backdrop-blur-md rounded-lg p-4 cursor-pointer select-none gap-2">
+                  <div className="w-12 h-12 flex items-center justify-center bg-black/10 rounded-lg relative">
+                    <TbPointFilled className="absolute text-lg text-blue-600 top-2 right-2" />
+                    <IoIosNotificationsOutline className="text-2xl text-white" />
                   </div>
-                  <div className="flex flex-col gap-1 w-7/12 text-sm">
-                    <span className="text-sm font-semibold">
+                  <div className="flex flex-col w-7/12 text-sm">
+                    <span className="text-xs font-semibold">
                       Reserva confirmada
                     </span>
-                    <span className="text-xs text-zinc-800">
+                    <span className="text-[10px] text-zinc-800">
                       Tu reserva ha sido confirmada para el servicio de corte de
                       cabello el 15 de octubre a las 3:00 PM.
                     </span>
                   </div>
                   <div className="">
-                    <span className="text-xs text-zinc-800 w-10">
+                    <span className="text-[10px] text-zinc-800 w-10">
                       Hace 10 min
                     </span>
                   </div>
                 </div>
-                <div className="flex items-start justify-between bg-white/30 backdrop-blur-md rounded-lg p-4">
-                  <div className="w-16 h-16 flex items-center justify-center bg-black/10 rounded-lg">
-                    <IoIosNotificationsOutline className="text-3xl text-white" />
+                <div className="flex items-start justify-between bg-white/30 hover:bg-white/50 backdrop-blur-md rounded-lg p-4 cursor-pointer select-none gap-2">
+                  <div className="w-12 h-12 flex items-center justify-center bg-black/10 rounded-lg relative">
+                    {/* <TbPointFilled className="absolute text-lg text-blue-600 top-2 right-2" /> */}
+                    <IoIosNotificationsOutline className="text-2xl text-white" />
                   </div>
-                  <div className="flex flex-col gap-1 w-7/12 text-sm">
-                    <span className="text-sm font-semibold">
+                  <div className="flex flex-col w-7/12 text-sm">
+                    <span className="text-xs font-semibold">
                       Reserva confirmada
                     </span>
-                    <span className="text-xs text-zinc-800">
+                    <span className="text-[10px] text-zinc-800">
                       Tu reserva ha sido confirmada para el servicio de corte de
                       cabello el 15 de octubre a las 3:00 PM.
                     </span>
                   </div>
                   <div className="">
-                    <span className="text-xs text-zinc-800 w-10">
+                    <span className="text-[10px] text-zinc-800 w-10">
                       Hace 10 min
                     </span>
                   </div>

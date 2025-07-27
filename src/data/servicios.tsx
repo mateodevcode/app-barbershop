@@ -1,7 +1,7 @@
-import { Servicio } from "@/types/Servicio";
+import { ServicioInterface } from "@/types/Servicio";
 import Image from "next/image";
 
-export const servicios: Servicio[] = [
+export const servicios: ServicioInterface[] = [
   {
     id: 1,
     nombre: "Corte de cabello",

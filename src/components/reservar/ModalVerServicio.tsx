@@ -73,9 +73,9 @@ const ModalVerServicio = () => {
             <div className="flex justify-center w-full p-2 rounded-lg h-80">
               <Image
                 src={
-                  servicioSeleccionado.imagen || "/servicios/corte-cabello.jpg"
+                  servicioSeleccionado?.imagen || "/servicios/corte-cabello.jpg"
                 }
-                alt={servicioSeleccionado.nombre}
+                alt={servicioSeleccionado?.nombre || "Servicio"}
                 width={500}
                 height={500}
                 className="w-full h-full object-cover rounded-lg"
@@ -88,7 +88,7 @@ const ModalVerServicio = () => {
               <div className="flex flex-col">
                 <div className="flex items-start justify-between">
                   <h2 className="text-xl font-semibold">
-                    {servicioSeleccionado.nombre}
+                    {servicioSeleccionado?.nombre}
                   </h2>
                   <div className="flex items-center gap-2">
                     <span className="font-semibold text-sm">
@@ -124,26 +124,26 @@ const ModalVerServicio = () => {
                   <IoStar className="text-amber-400" />
                   <IoStarHalf className="text-amber-400" />
                   <span className="text-xs">
-                    {servicioSeleccionado.puntuacion.toFixed(1)} estrellas
+                    {servicioSeleccionado?.puntuacion.toFixed(1)} estrellas
                   </span>
                 </div>
                 <span className="text-gray-600 text-sm mt-2">
-                  {servicioSeleccionado.descripcion}
+                  {servicioSeleccionado?.descripcion}
                 </span>
                 <div className="flex items-center gap-2 mt-1">
                   <FaCircleCheck className="text-green-600" />
                   <span className="text-xs">
-                    {servicioSeleccionado.adicional}
+                    {servicioSeleccionado?.adicional}
                   </span>
                 </div>
                 <span className="text-gray-500 text-xs mt-1">
-                  Tiempo estimado de {servicioSeleccionado.duracion} minutos
+                  Tiempo estimado de {servicioSeleccionado?.duracion} minutos
                   aproximadamente.
                 </span>
                 <div className="flex items-center gap-2 mt-2 bg-blue-800/80 p-2 rounded-full w-max px-5">
                   <span className="text-sm text-white">Precio:</span>
                   <span className="text-sm font-bold text-white">
-                    {formatoDinero(servicioSeleccionado.precio)}
+                    {formatoDinero(servicioSeleccionado?.precio)}
                   </span>
                 </div>
               </div>

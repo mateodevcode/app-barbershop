@@ -5,11 +5,11 @@ import Usuario from "@/models/usuario";
 
 export async function GET(
   _request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectMongoDB();
-    const { id } = params;
+    const { id } = await params;
     const UsuarioEncontrado = await Usuario.findById(id);
 
     if (!UsuarioEncontrado) {
@@ -29,10 +29,10 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
     await connectMongoDB();
     const data = await request.json();
 
@@ -56,10 +56,10 @@ export async function PUT(
 
 export async function DELETE(
   _request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
     await connectMongoDB();
     const UsuarioEliminado = await Usuario.findByIdAndDelete(id);
 
@@ -82,10 +82,10 @@ export async function DELETE(
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
     await connectMongoDB();
 
     const { password }: { password: string } = await request.json();

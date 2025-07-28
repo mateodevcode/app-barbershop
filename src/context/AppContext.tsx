@@ -171,13 +171,20 @@ export function AppProvider({ children }: AppProviderProps) {
 
   useEffect(() => {
     const fetchUsuario = async () => {
-      const user = usuarios.find((u) => String(u._id) === session?.user.id);
+      // Busca el usuario por email en vez de id, ya que session?.user?.id no existe
+      if (!session?.user) return;
+      const user = usuarios.find(
+        (u) =>
+          String(u.email) === String(session.user?.email)
+      );
       if (user) {
         setUsuario(user);
       }
     };
     fetchUsuario();
   }, [usuarios, session]);
+
+  console.log("Usuario en AppContext:", session?.user);
 
   return (
     <AppContext.Provider

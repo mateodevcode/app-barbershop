@@ -3,13 +3,10 @@ import { connectMongoDB } from "@/lib/db";
 import bcrypt from "bcryptjs";
 import Usuario from "@/models/usuario";
 
-interface Params {
-  params: {
-    id: string;
-  };
-}
-
-export async function GET(_request: NextRequest, { params }: Params) {
+export async function GET(
+  _request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     await connectMongoDB();
     const { id } = params;
@@ -24,12 +21,16 @@ export async function GET(_request: NextRequest, { params }: Params) {
 
     return NextResponse.json(UsuarioEncontrado);
   } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : "Ocurrió un error inesperado";
+    const errorMessage =
+      error instanceof Error ? error.message : "Ocurrió un error inesperado";
     return NextResponse.json({ message: errorMessage }, { status: 500 });
   }
 }
 
-export async function PUT(request: NextRequest, { params }: Params) {
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     const { id } = params;
     await connectMongoDB();
@@ -47,12 +48,16 @@ export async function PUT(request: NextRequest, { params }: Params) {
       { status: 200 }
     );
   } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : "Ocurrió un error inesperado";
+    const errorMessage =
+      error instanceof Error ? error.message : "Ocurrió un error inesperado";
     return NextResponse.json({ message: errorMessage }, { status: 400 });
   }
 }
 
-export async function DELETE(_request: NextRequest, { params }: Params) {
+export async function DELETE(
+  _request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     const { id } = params;
     await connectMongoDB();
@@ -69,12 +74,16 @@ export async function DELETE(_request: NextRequest, { params }: Params) {
       message: "El Usuario se ha eliminado con éxito",
     });
   } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : "Ocurrió un error inesperado";
+    const errorMessage =
+      error instanceof Error ? error.message : "Ocurrió un error inesperado";
     return NextResponse.json({ message: errorMessage }, { status: 500 });
   }
 }
 
-export async function PATCH(request: NextRequest, { params }: Params) {
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     const { id } = params;
     await connectMongoDB();
@@ -107,7 +116,8 @@ export async function PATCH(request: NextRequest, { params }: Params) {
       { status: 200 }
     );
   } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : "Ocurrió un error inesperado";
+    const errorMessage =
+      error instanceof Error ? error.message : "Ocurrió un error inesperado";
     return NextResponse.json({ message: errorMessage }, { status: 500 });
   }
 }

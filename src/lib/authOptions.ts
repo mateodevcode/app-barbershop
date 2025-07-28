@@ -5,6 +5,29 @@ import { connectMongoDB } from "@/lib/db";
 import Usuario from "@/models/usuario";
 import bcrypt from "bcryptjs";
 
+// Extiende el tipo User para incluir 'rol'
+declare module "next-auth" {
+  interface User {
+    rol?: string;
+  }
+  interface Session {
+    user: {
+      id: string;
+      rol?: string;
+      name?: string | null;
+      email?: string | null;
+      image?: string | null;
+    };
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    id?: string;
+    rol?: string;
+  }
+}
+
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({

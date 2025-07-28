@@ -5,12 +5,12 @@ import Usuario from "@/models/usuario";
 
 export async function GET(
   _request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
     await connectMongoDB();
-    const { id } = await params;
-    const UsuarioEncontrado = await Usuario.findById(id);
+
+    const UsuarioEncontrado = await Usuario.findById(params.id);
 
     if (!UsuarioEncontrado) {
       return NextResponse.json(
@@ -29,16 +29,19 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
     await connectMongoDB();
     const data = await request.json();
 
-    const UsuarioActualizado = await Usuario.findByIdAndUpdate(id, data, {
-      new: true,
-    });
+    const UsuarioActualizado = await Usuario.findByIdAndUpdate(
+      params.id,
+      data,
+      {
+        new: true,
+      }
+    );
 
     return new Response(
       JSON.stringify({
@@ -56,12 +59,11 @@ export async function PUT(
 
 export async function DELETE(
   _request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
     await connectMongoDB();
-    const UsuarioEliminado = await Usuario.findByIdAndDelete(id);
+    const UsuarioEliminado = await Usuario.findByIdAndDelete(params.id);
 
     if (!UsuarioEliminado) {
       return NextResponse.json(
@@ -82,14 +84,13 @@ export async function DELETE(
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
     await connectMongoDB();
 
     const { password }: { password: string } = await request.json();
-    const usuario = await Usuario.findById(id);
+    const usuario = await Usuario.findById(params.id);
 
     if (!usuario) {
       return NextResponse.json(

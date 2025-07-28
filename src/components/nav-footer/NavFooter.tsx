@@ -8,8 +8,6 @@ const NavFooter = () => {
   const router = useRouter();
   const path = usePathname();
 
-  console.log("Current Path:", path);
-
   return (
     <div className="h-16 bg-white w-full fixed bottom-0 rounded-t-2xl z-30 ">
       <div className="grid grid-cols-4 gap-4 items-center justify-items-center shadow-lg p-4">

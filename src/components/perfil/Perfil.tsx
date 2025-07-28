@@ -2,16 +2,21 @@
 
 import React from "react";
 import { MdEmail, MdOutlineKeyboardArrowLeft } from "react-icons/md";
-import IniciarTour from "../guia/IniciarTour";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { IoIosNotificationsOutline, IoIosPhonePortrait } from "react-icons/io";
 import { LiaFileAlt } from "react-icons/lia";
 import { CiSettings } from "react-icons/ci";
 import { RiMapPin2Fill } from "react-icons/ri";
+import { useAppContext } from "@/context/AppContext";
+import { formatoFechaCorta } from "@/utils/formatoFecha";
+import { tomarDosPrimerosNombres } from "@/utils/tomarDosPrimerosNombres";
+import { formatearNombreMayus } from "@/utils/formatearNombreMayus";
+import { BsPersonCheck } from "react-icons/bs";
 
 const Perfil = () => {
   const router = useRouter();
+  const { usuario } = useAppContext();
 
   return (
     <div
@@ -33,23 +38,28 @@ const Perfil = () => {
           <h3 className="text-xl font-semibold text-zinc-200 select-none">
             Perfil
           </h3>
-          <IniciarTour />
+          <button className="text-zinc-800 select-none bg-white rounded-full p-2 w-10 h-10 flex items-center justify-center">
+            <BsPersonCheck className="text-2xl" />
+          </button>
         </div>
         <div className="p-4 w-full h-[88svh] mt-5">
           <div className="h-[70svh] bg-white rounded-lg shadow-md flex flex-col items-center justify-start py-8 md:py-20">
             <div className="flex flex-col items-center justify-center w-40 h-40">
               <Image
-                src="/perfil/usuario.jpg"
-                alt="Usuario"
+                src={usuario?.imageUrl || "/perfil/usuario.png"}
+                alt={usuario?.name || "Usuario"}
                 width={500}
                 height={500}
                 className="rounded-full mb-4"
               />
             </div>
             <div className="flex flex-col items-center justify-center text-center mb-4">
-              <span className="text-2xl font-bold">Mateo Lizcano</span>
+              <span className="text-2xl font-bold">
+                {tomarDosPrimerosNombres(usuario?.name || "")}
+              </span>
               <span className="text-sm text-zinc-400">
-                Cliente desde: 01/01/2023
+                {formatearNombreMayus(usuario?.rol || "")} desde:{" "}
+                {formatoFechaCorta(usuario?.createdAt)}
               </span>
             </div>
             <div className="flex items-center justify-center gap-4 mb-4">
@@ -78,25 +88,31 @@ const Perfil = () => {
                 <span className="text-zinc-300 text-sm">
                   Numero de teléfono
                 </span>
-                <div className="flex items-center justify-center gap-2 font-semibold">
+                <div className="flex items-center justify-center gap-2">
                   <IoIosPhonePortrait className="text-rose-600 text-xl" />
-                  <span className="">+57 300-288-8529</span>
+                  <span className="">
+                    {usuario?.telefono || "No hay información disponible"}
+                  </span>
                 </div>
               </div>
               <div className="flex flex-col items-center text-zinc-800 mb-1">
                 <span className="text-zinc-300 text-sm">
                   Correo electrónico
                 </span>
-                <div className="flex items-center justify-center gap-2 font-semibold">
+                <div className="flex items-center justify-center gap-2">
                   <MdEmail className="text-rose-600 text-xl" />
-                  <span className="">bysteffler@gmail.com</span>
+                  <span className="">
+                    {usuario?.email || "marcos@gmail.com"}
+                  </span>
                 </div>
               </div>
               <div className="flex flex-col items-center text-zinc-800 mb-1">
                 <span className="text-zinc-300 text-sm">Dirección</span>
-                <div className="flex items-center justify-center gap-2 font-semibold">
+                <div className="flex items-center justify-center gap-2">
                   <RiMapPin2Fill className="text-rose-600 text-xl" />
-                  <span className="">Calle 123, Barranquilla, Atlantico</span>
+                  <span className="">
+                    {usuario?.direccion || "No hay información disponible"}
+                  </span>
                 </div>
               </div>
             </div>

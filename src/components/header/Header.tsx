@@ -1,6 +1,7 @@
 "use client";
 
 import { useAppContext } from "@/context/AppContext";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { BsList } from "react-icons/bs";
@@ -9,7 +10,7 @@ import { IoPersonCircleOutline } from "react-icons/io5";
 
 const Header = () => {
   const router = useRouter();
-  const { setOpenModalNotificaciones, setOpenMenuHamburguesa } =
+  const { setOpenModalNotificaciones, setOpenMenuHamburguesa, usuario } =
     useAppContext();
 
   return (
@@ -27,12 +28,28 @@ const Header = () => {
         >
           <IoIosNotificationsOutline />
         </button>
-        <button
-          className="p-2 text-zinc-800 text-3xl cursor-pointer select-none active:scale-95 transition-transform duration-200 hover:text-zinc-600"
-          onClick={() => router.push("/perfil")}
-        >
-          <IoPersonCircleOutline />
-        </button>
+        {usuario ? (
+          <div
+            className="relative w-8 h-8"
+            onClick={() => router.push("/perfil")}
+          >
+            <Image
+              src={usuario?.imageUrl || "/default-avatar.png"}
+              alt="Avatar"
+              width={200}
+              height={200}
+              className="rounded-full cursor-pointer"
+              onClick={() => router.push("/perfil")}
+            />
+          </div>
+        ) : (
+          <button
+            className="p-2 text-zinc-800 text-3xl cursor-pointer select-none active:scale-95 transition-transform duration-200 hover:text-zinc-600"
+            onClick={() => router.push("/bienvenida")}
+          >
+            <IoPersonCircleOutline />
+          </button>
+        )}
       </div>
     </div>
   );

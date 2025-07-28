@@ -10,6 +10,8 @@ import {
 import { ReservaInterface } from "@/types/Reserva";
 import { BarberoInterface } from "@/types/Barbero";
 import { ServicioInterface } from "@/types/Servicio";
+import { useSession } from "next-auth/react";
+import { UsuarioInterface } from "@/types/Usuario";
 
 // ──────────────────────────────
 // Tipos (ajústalos a tu API real)
@@ -50,6 +52,33 @@ interface AppContextValue {
 
   openModalMenuHamburguesa: boolean;
   setOpenMenuHamburguesa: React.Dispatch<React.SetStateAction<boolean>>;
+
+  usuarios: UsuarioInterface[];
+  setUsuarios: React.Dispatch<React.SetStateAction<UsuarioInterface[]>>;
+
+  usuario: UsuarioInterface | null;
+  setUsuario: React.Dispatch<React.SetStateAction<UsuarioInterface | null>>;
+
+  formDatosUausuario: {
+    name: string;
+    password: string;
+    telefono: string;
+    direccion: string;
+    imageUrl: string;
+    publicId: string;
+    opcion: string;
+  };
+  setFormDatosUsuario: React.Dispatch<
+    React.SetStateAction<{
+      name: string;
+      password: string;
+      telefono: string;
+      direccion: string;
+      imageUrl: string;
+      publicId: string;
+      opcion: string;
+    }>
+  >;
 }
 
 const AppContext = createContext<AppContextValue | null>(null);
@@ -67,6 +96,7 @@ type AppProviderProps = {
 };
 
 export function AppProvider({ children }: AppProviderProps) {
+  const { data: session } = useSession();
   const [openModalServicioSeleccionado, setOpenModalServicioSeleccionado] =
     useState(false);
   const [servicioSeleccionado, setServicioSeleccionado] =
@@ -82,6 +112,17 @@ export function AppProvider({ children }: AppProviderProps) {
     useState<boolean>(false);
   const [openModalMenuHamburguesa, setOpenMenuHamburguesa] =
     useState<boolean>(false);
+  const [usuarios, setUsuarios] = useState<UsuarioInterface[]>([]);
+  const [usuario, setUsuario] = useState<UsuarioInterface | null>(null);
+  const [formDatosUausuario, setFormDatosUsuario] = useState({
+    name: "",
+    password: "",
+    telefono: "",
+    direccion: "",
+    imageUrl: "",
+    publicId: "",
+    opcion: "editar",
+  });
 
   useEffect(() => {
     const fetchReservas = async () => {
@@ -113,6 +154,31 @@ export function AppProvider({ children }: AppProviderProps) {
     fetchBarberos();
   }, []);
 
+  useEffect(() => {
+    const fetchUsuarios = async () => {
+      try {
+        const response = await fetch("/api/usuarios");
+        if (!response.ok) throw new Error("Error fetching usuarios");
+        const data = await response.json();
+        setUsuarios(data);
+      } catch (error) {
+        console.error("Error fetching usuarios:", error);
+      }
+    };
+
+    fetchUsuarios();
+  }, []);
+
+  useEffect(() => {
+    const fetchUsuario = async () => {
+      const user = usuarios.find((u) => String(u._id) === session?.user.id);
+      if (user) {
+        setUsuario(user);
+      }
+    };
+    fetchUsuario();
+  }, [usuarios, session]);
+
   return (
     <AppContext.Provider
       value={{
@@ -134,6 +200,12 @@ export function AppProvider({ children }: AppProviderProps) {
         setOpenModalNotificaciones,
         openModalMenuHamburguesa,
         setOpenMenuHamburguesa,
+        usuarios,
+        setUsuarios,
+        usuario,
+        setUsuario,
+        formDatosUausuario,
+        setFormDatosUsuario,
       }}
     >
       {children}

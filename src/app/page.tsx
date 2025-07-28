@@ -11,6 +11,7 @@ import ModalVerServicio from "@/components/reservar/ModalVerServicio";
 import ModalServicioSeleccionado from "@/components/servicios/ModalServicioSeleccionado";
 import ModalNotificaciones from "@/components/notificaciones/ModalNotificaciones";
 import MenuHamburguesa from "@/components/menu-hamburguesa/MenuHamburguesa";
+import Loading from "@/components/loading/Loading";
 
 const page = () => {
   return (
@@ -27,7 +28,7 @@ const page = () => {
       <ModalServicioSeleccionado />
       <ModalNotificaciones />
       <MenuHamburguesa />
-      {/* <Loading /> */}
+      <Loading />
     </div>
   );
 };

@@ -18,6 +18,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Barber Shop App",
   description: "Aplicaciión de barberría",
+  manifest: "/manifest.json",
+  icons: {
+    apple: "/icon.png",
+  },
 };
 
 export default function RootLayout({

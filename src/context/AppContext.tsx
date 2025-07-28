@@ -174,8 +174,7 @@ export function AppProvider({ children }: AppProviderProps) {
       // Busca el usuario por email en vez de id, ya que session?.user?.id no existe
       if (!session?.user) return;
       const user = usuarios.find(
-        (u) =>
-          String(u.email) === String(session.user?.email)
+        (u) => String(u.email) === String(session.user?.email)
       );
       if (user) {
         setUsuario(user);
@@ -183,8 +182,6 @@ export function AppProvider({ children }: AppProviderProps) {
     };
     fetchUsuario();
   }, [usuarios, session]);
-
-  console.log("Usuario en AppContext:", session?.user);
 
   return (
     <AppContext.Provider

@@ -7,11 +7,12 @@ import { IoClose } from "react-icons/io5";
 import { opciones } from "@/data/opciones";
 import { useRouter } from "next/navigation";
 import { MdLogout } from "react-icons/md";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 const MenuHamburguesa = () => {
   const { openModalMenuHamburguesa, setOpenMenuHamburguesa } = useAppContext();
   const router = useRouter();
+  const { status } = useSession();
 
   useEffect(() => {
     if (openModalMenuHamburguesa) {
@@ -71,20 +72,22 @@ const MenuHamburguesa = () => {
                       <span>{item.nombre}</span>
                     </div>
                   ))}
-                  <div
-                    className="flex items-center gap-4 w-full hover:text-blue-600"
-                    onClick={() => {
-                      setOpenMenuHamburguesa(false);
-                      signOut({
-                        callbackUrl: "/",
-                      });
-                    }}
-                  >
-                    <div className="text-xl p-2 flex items-center justify-center bg-black/10 rounded-lg relative">
-                      <MdLogout />
+                  {status === "authenticated" && (
+                    <div
+                      className="flex items-center gap-4 w-full hover:text-blue-600"
+                      onClick={() => {
+                        setOpenMenuHamburguesa(false);
+                        signOut({
+                          callbackUrl: "/",
+                        });
+                      }}
+                    >
+                      <div className="text-xl p-2 flex items-center justify-center bg-black/10 rounded-lg relative">
+                        <MdLogout />
+                      </div>
+                      <span>Cerrar sesión</span>
                     </div>
-                    <span>Cerrar sesión</span>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>

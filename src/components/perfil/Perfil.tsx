@@ -46,7 +46,7 @@ const Perfil = () => {
           <div className="h-[70svh] bg-white rounded-lg shadow-md flex flex-col items-center justify-start py-8 md:py-20">
             <div className="flex flex-col items-center justify-center w-40 h-40">
               <Image
-                src={usuario?.imageUrl || "/perfil/usuario.png"}
+                src={usuario?.imageUrl || "/perfil/usuario.jpg"}
                 alt={usuario?.name || "Usuario"}
                 width={500}
                 height={500}
@@ -106,11 +106,11 @@ const Perfil = () => {
                   </span>
                 </div>
               </div>
-              <div className="flex flex-col items-center text-zinc-800 mb-1">
+              <div className="flex flex-col items-center text-zinc-800 mb-1 justify-center">
                 <span className="text-zinc-300 text-sm">Dirección</span>
                 <div className="flex items-center justify-center gap-2">
                   <RiMapPin2Fill className="text-rose-600 text-xl" />
-                  <span className="">
+                  <span className="max-w-64">
                     {usuario?.direccion || "No hay información disponible"}
                   </span>
                 </div>

@@ -1,7 +1,5 @@
-import mongoose from "mongoose";
-
 export interface ReservaInterface {
-  barbero_id: mongoose.Types.ObjectId;
+  barbero_id: string;
   servicio_id: string | undefined;
   cliente_nombre: string;
   cliente_telefono: string;

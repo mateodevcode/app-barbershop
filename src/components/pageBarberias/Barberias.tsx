@@ -8,6 +8,8 @@ import { formatoDinero } from "@/utils/formatoDinero";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import IniciarTour from "../guia/IniciarTour";
 import { useRouter } from "next/navigation";
+import { CiLocationOn } from "react-icons/ci";
+import { barberias } from "@/data/barberias";
 
 const Barberias = () => {
   const router = useRouter();
@@ -25,33 +27,30 @@ const Barberias = () => {
           <h3 className="text-xl font-semibold text-zinc-800 select-none">
             Barberias
           </h3>
-          <IniciarTour />
+          <button className="text-zinc-800 select-none bg-white rounded-full p-2 w-10 h-10 flex items-center justify-center">
+            <CiLocationOn className="text-2xl" />
+          </button>
         </div>
         <div className="p-4 w-full">
-          <div className="grid grid-cols-2 gap-4 mt-4">
-            {servicios.map((servicio, index) => (
+          <div className="flex items-center gap-2 mb-4">
+            <CiLocationOn className="" />
+            <span>Nuestras sedes</span>
+          </div>
+          <div className="flex flex-col gap-4 pb-16">
+            {barberias.map((barberia) => (
               <div
-                key={index}
-                className="p-4 rounded-lg h-40 flex flex-col justify-end relative"
+                key={barberia.id}
                 style={{
-                  backgroundImage: `url(${servicio.imagen_icono})`,
+                  backgroundImage: `url(${barberia.imageUrl})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}
+                className="mb-4 rounded-lg relative h-96"
               >
-                <div className="absolute inset-0 bg-black/30 rounded-lg" />
-                <h3 className="font-semibold text-white z-20">
-                  {servicio.titulo}
-                </h3>
-                <div className="flex justify-between items-center text-white z-20">
-                  <div className="flex items-center gap-1 text-sm">
-                    <WiTime4 className="text-xl" />
-                    <span>{servicio.duracion}min</span>
-                  </div>
-                  <div className="flex items-center gap-1 text-sm">
-                    <span>{formatoDinero(servicio.precio)}</span>
-                    <GrMoney />
-                  </div>
+                <div className="absolute inset-0 bg-black/50 rounded-lg" />
+                <div className="flex flex-col items-start justify-end p-4 text-zinc-300 relative z-10 h-full">
+                  <span className="font-semibold">{barberia.name}</span>
+                  <span>{barberia.address}</span>
                 </div>
               </div>
             ))}

@@ -1,11 +1,11 @@
 "use client";
 
 import { useAppContext } from "@/context/AppContext";
-import { servicios } from "@/data/servicios";
-import { formatoFecha, formatoHora } from "@/utils/formatoFecha";
+import { formatoHora } from "@/utils/formatoFecha";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect } from "react";
 import { FaCircleCheck } from "react-icons/fa6";
+import { IoClose } from "react-icons/io5";
 
 const ModalConfirmacionReserva = () => {
   const {
@@ -13,7 +13,6 @@ const ModalConfirmacionReserva = () => {
     setOpenModalConfirmacionReserva,
     reservaConfirmada,
     setReservaConfirmada,
-    barberos,
   } = useAppContext();
 
   useEffect(() => {
@@ -23,16 +22,6 @@ const ModalConfirmacionReserva = () => {
       document.body.style.overflow = "";
     }
   }, [openModalConfirmacionReserva]);
-
-  const barberoSeleccionado = barberos.find(
-    (barbero) => barbero._id === reservaConfirmada?.barbero_id
-  );
-
-  const servicioSeleccionado =
-    reservaConfirmada?.servicio_id !== undefined &&
-    typeof reservaConfirmada.servicio_id === "number"
-      ? servicios[reservaConfirmada.servicio_id]
-      : undefined;
 
   return (
     <AnimatePresence>
@@ -56,38 +45,29 @@ const ModalConfirmacionReserva = () => {
             {reservaConfirmada !== null && (
               <div className="fixed top-0 left-0 w-full h-full bg-black/80 bg-opacity-50 flex items-center justify-center z-50">
                 <div className="w-10/12 mx-auto flex items-center justify-center">
-                  <div className="flex flex-col items-center justify-center bg-green-100 rounded-lg shadow-lg p-8 px-10">
-                    <FaCircleCheck className="text-green-600 text-4xl mb-4" />
-                    <h3 className="text-2xl font-bold mb-4 text-green-600">
-                      Reserva Confirmada
+                  <div className="flex flex-col items-center justify-center bg-white rounded-lg shadow-lg p-8 px-10 relative">
+                    <button
+                      className="absolute top-2 right-2 bg-black/10 hover:bg-black/20 rounded-full p-2 transition duration-300 cursor-pointer select-none active:scale-95"
+                      onClick={() => {
+                        setReservaConfirmada(null);
+                        setOpenModalConfirmacionReserva(false);
+                      }}
+                    >
+                      <IoClose className="text-black text-xl" />
+                    </button>
+                    <FaCircleCheck className="text-green-600 text-5xl mb-4" />
+                    <h3 className="text-2xl font-bold mb-2 text-black">
+                      Gracias por elegirnos
                     </h3>
-                    <span className="text-base text-center text-green-600">
-                      Para el{" "}
-                      <strong>{formatoFecha(reservaConfirmada?.fecha)}</strong>{" "}
-                      con <strong>{barberoSeleccionado?.nombre}</strong> para el
-                      servicio de{" "}
-                      <strong>{servicioSeleccionado?.nombre}</strong>.
-                    </span>
-                    <span className="text-base text-center text-gray-600 mt-2">
+                    <span className="text-sm text-center text-gray-600">
                       Hora de reserva:{" "}
-                      <strong>
+                      <strong className="text-black text-base">
                         {formatoHora(reservaConfirmada?.hora_inicio)}
                       </strong>
                     </span>
                     <span className="text-center text-xs text-gray-500 mt-2">
                       Te esperamos pronto en nuestra barbería.
                     </span>
-                    <div className="flex items-center justify-end mt-2 w-full">
-                      <button
-                        className="bg-black text-white px-4 py-2 rounded-lg shadow-lg hover:bg-zinc-800 transition duration-300 cursor-pointer select-none mt-4 text-xs flex items-center gap-2"
-                        onClick={() => {
-                          setReservaConfirmada(null);
-                          setOpenModalConfirmacionReserva(false);
-                        }}
-                      >
-                        <span>Cerrar</span>
-                      </button>
-                    </div>
                   </div>
                 </div>
               </div>

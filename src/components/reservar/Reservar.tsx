@@ -16,6 +16,8 @@ import { IoPhonePortraitOutline } from "react-icons/io5";
 import { IoMdOpen } from "react-icons/io";
 import { completarDia } from "@/utils/completarDia";
 import { useAppContext } from "@/context/AppContext";
+import { reservasSchema } from "@/validations/reservas";
+import { ReservaInterface } from "@/types/Reserva";
 
 interface Horario {
   hora_inicio: string; // ISO string
@@ -90,18 +92,26 @@ const Reservar: React.FC = () => {
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    if (
-      !formData.nombre ||
-      !formData.telefono ||
-      !formData.servicio ||
-      !formData.fecha ||
-      !formData.barbero ||
-      !horaSeleccionada
-    ) {
-      toast.error("Por favor, completa todos los campos.", {
-        position: "top-right",
-      });
-      setReservaConfirmada(null);
+    const data: ReservaInterface = {
+      ...formData,
+      barbero_id: formData.barbero,
+      servicio_id: formData.servicio,
+      cliente_nombre: formData.nombre,
+      cliente_telefono: formData.telefono,
+      fecha: formData.fecha ? new Date(formData.fecha) : new Date(),
+      hora_inicio: horaSeleccionada ? new Date(horaSeleccionada) : new Date(),
+      hora_fin: new Date(
+        horaSeleccionada
+          ? new Date(horaSeleccionada).getTime() + duracion * 60000
+          : new Date().getTime() + duracion * 60000
+      ),
+      estado: "confirmada",
+    };
+
+    const errores = reservasSchema(data);
+
+    if (errores.length > 0) {
+      errores.forEach((e) => toast.error(e));
       return;
     }
 

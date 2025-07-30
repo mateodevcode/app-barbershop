@@ -6,7 +6,6 @@ import NavFooter from "@/components/nav-footer/NavFooter";
 import Presentacion from "@/components/presentacion/Presentacion";
 import Header from "@/components/header/Header";
 import BannerPromocional from "@/components/banner-promocional/BannerPromocional";
-import ModalConfirmacionReserva from "@/components/reservar/ModalConfirmacionReserva";
 import ModalVerServicio from "@/components/reservar/ModalVerServicio";
 import ModalServicioSeleccionado from "@/components/servicios/ModalServicioSeleccionado";
 import ModalNotificaciones from "@/components/notificaciones/ModalNotificaciones";
@@ -23,7 +22,6 @@ const page = () => {
       <Opciones />
       <Barberias />
       <NavFooter />
-      <ModalConfirmacionReserva />
       <ModalVerServicio />
       <ModalServicioSeleccionado />
       <ModalNotificaciones />
